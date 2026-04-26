@@ -1,0 +1,27 @@
+{
+  "name": "js-mastery-lab",
+  "version": "1.0.0",
+  "description": "A comprehensive practice project covering JavaScript fundamentals, DOM manipulation, and Asynchronous programming.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alijewa25/js-mastery-lab.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alijewa25/js-mastery-lab/issues"
+  },
+  "homepage": "https://github.com/Alijewa25/js-mastery-lab#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.5.0"
+  }
+}
