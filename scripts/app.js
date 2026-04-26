@@ -4,14 +4,16 @@ const authBox = document.querySelector('.auth-box');
 const todoBox = document.querySelector('.todo-box');
 const welcomeMsg = document.getElementById('welcome-msg');
 
+// --- QEYDİYYAT (REGISTER) ---
 registerBtn.addEventListener('click', async () => {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
 
     if (!username || !password) return alert("Please fill all fields");
 
     try {
-        const response = await fetch("/register", {
+        // DÜZƏLİŞ: Bura mütləq /register olmalıdır!
+        const response = await fetch("/register", { 
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
@@ -20,13 +22,16 @@ registerBtn.addEventListener('click', async () => {
         const message = await response.text();
         alert(message);
     } catch (error) {
-        alert("Registration failed. Check server.");
+        alert("Registration failed. Check server connection.");
     }
 });
 
+// --- GİRİŞ (LOGIN) ---
 loginBtn.addEventListener('click', async () => {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!username || !password) return alert("Please fill all fields");
 
     try {
         const response = await fetch("/login", {
@@ -41,10 +46,9 @@ loginBtn.addEventListener('click', async () => {
             authBox.style.display = 'none';
             todoBox.style.display = 'block';
             welcomeMsg.innerText = `Hi, ${user.username}`;
-            
         } else {
             const errorMsg = await response.text();
-            alert("Error: " + errorMsg); 
+            alert("Login Failed: " + errorMsg); 
         }
     } catch (error) {
         alert("Could not connect to server.");
@@ -52,5 +56,5 @@ loginBtn.addEventListener('click', async () => {
 });
 
 document.getElementById('logout-btn').addEventListener('click', () => {
-    location.reload(); // Səhifəni yeniləyərək başa qaytarır
+    location.reload(); 
 });
