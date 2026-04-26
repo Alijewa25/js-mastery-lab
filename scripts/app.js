@@ -1,51 +1,57 @@
-// --- 1. ELEMENTLƏRİN SEÇİLMƏSİ ---
+// 1. Elementləri seçirik
 const addBtn = document.getElementById('add-btn');
 const inputField = document.getElementById('item-input');
 const itemList = document.getElementById('item-list');
 const registerBtn = document.getElementById('register-btn');
-const loginBtn = document.getElementById('login-btn'); // Login düyməsini də əlavə etdik
+const clearBtn = document.getElementById('clear-all');
 
-// --- 2. QEYDİYYAT (REGISTER) MƏNTİQİ ---
+// --- TASK ƏLAVƏ ETMƏK (Local işləməsi üçün) ---
+function addItem() {
+    const text = inputField.value;
+    if (text.trim() === "") {
+        alert("Boş buraxma!");
+        return;
+    }
+
+    const li = document.createElement('li');
+    li.textContent = text;
+
+    const delBtn = document.createElement('button');
+    delBtn.textContent = 'X';
+    delBtn.onclick = () => li.remove();
+
+    li.appendChild(delBtn);
+    itemList.appendChild(li);
+    inputField.value = "";
+}
+
+addBtn.addEventListener('click', addItem);
+
+// --- QEYDİYYAT (Serverə göndərmək üçün) ---
 registerBtn.addEventListener('click', async () => {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
 
     if (!user || !pass) {
-        alert("Zəhmət olmasa xanaları doldurun!");
+        alert("Xanaları doldur!");
         return;
     }
 
-    const response = await fetch('/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: user, password: pass })
-    });
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: user, password: pass })
+        });
 
-    const result = await response.text();
-    alert(result);
+        const result = await response.text();
+        alert(result);
+    } catch (err) {
+        alert("Serverə qoşula bilmədi. Node serverin işləyir?");
+    }
 });
 
-// --- 3. GİRİŞ (LOGIN) MƏNTİQİ (Hələlik sadə formada) ---
-// Bunu növbəti addımda server tərəfdə yazacağıq, amma düyməsini hazır qoyaq
-loginBtn.addEventListener('click', () => {
-    alert("Login funksiyası tezliklə hazır olacaq!");
+// Hamısını təmizləmək
+clearBtn.addEventListener('click', () => {
+    itemList.innerHTML = "";
 });
-
-// --- 4. TO-DO LIST MƏNTİQİ (Sənin köhnə kodların) ---
-function addItem() {
-    const text = inputField.value;
-    if (text.trim() === '') return;
-
-    const li = document.createElement('li');
-    li.textContent = text;
-    
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'X';
-    deleteBtn.onclick = () => li.remove();
-
-    li.appendChild(deleteBtn);
-    itemList.appendChild(li);
-    inputField.value = '';
-}
-
-addBtn.addEventListener('click', addItem);

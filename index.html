@@ -3,23 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Mastery Lab - Task Manager</title>
+    <title>JS Mastery - Full Stack</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-
     <div class="container">
-        <h1 id="main-header">Task Manager</h1>
-        
-        <div class="control-panel">
-            <input type="text" id="item-input" placeholder="What needs to be done?">
-            <button id="add-btn">Add Task</button>
+        <div id="auth-section">
+            <h2>Giriş / Qeydiyyat</h2>
+            <input type="text" id="username" placeholder="İstifadəçi adı">
+            <input type="password" id="password" placeholder="Şifrə">
+            <div class="auth-btns">
+                <button id="login-btn">Giriş</button>
+                <button id="register-btn">Qeydiyyat</button>
+            </div>
         </div>
 
-        <ul id="item-list"></ul>
-        
-        <div class="footer">
-            <button id="clear-all">Clear All Tasks</button>
+        <hr>
+
+        <div id="main-app">
+            <h2>Mənim Tasklarım</h2>
+            <div class="control-panel">
+                <input type="text" id="item-input" placeholder="Yeni tapşırıq yaz...">
+                <button id="add-btn">Əlavə et</button>
+            </div>
+            <ul id="item-list"></ul>
+            <button id="clear-all">Hamısını sil</button>
         </div>
     </div>
 
