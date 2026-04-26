@@ -2,22 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JS Mastery Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Mastery Lab - Task Manager</title>
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
+
     <div class="container">
-        <h1 id="main-header">JavaScript Lab</h1>
+        <h1 id="main-header">Task Manager</h1>
         
         <div class="control-panel">
-            <input type="text" id="item-input" placeholder="Enter a task...">
-            <button id="add-btn">Add to List</button>
+            <input type="text" id="item-input" placeholder="What needs to be done?">
+            <button id="add-btn">Add Task</button>
         </div>
 
-        <ul id="item-list">
-            </ul>
+        <ul id="item-list"></ul>
         
-        <button id="api-btn">Fetch Mock Data</button>
+        <div class="footer">
+            <button id="clear-all">Clear All Tasks</button>
+        </div>
     </div>
 
     <script src="scripts/app.js"></script>

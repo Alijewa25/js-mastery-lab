@@ -1,28 +1,73 @@
 #!/usr/bin/node
 
-// 1. Variables (let & const - no var!)
+// 1. Elementləri seçirik (Selection)
 const addBtn = document.getElementById('add-btn');
-const inputField = document.querySelector('#item-input');
-const list = document.querySelector('#item-list');
+const inputField = document.getElementById('item-input');
+const itemList = document.getElementById('item-list');
+const clearBtn = document.getElementById('clear-all');
 
-// 2. The Logic: Function to add a new item
+/**
+ * Yeni tapşırıq əlavə edən funksiya
+ */
 function addItem() {
-    const value = inputField.value;
+  const text = inputField.value;
 
-    if (value.trim() !== "") {
-        // Create an element
-        const li = document.createElement('li');
-        li.textContent = value;
+  // Boşluq yoxlaması (Condition)
+  if (text.trim() === '') {
+    alert('Please enter a task!');
+    return;
+  }
 
-        // Add to the DOM
-        list.appendChild(li);
+  // A. Yeni 'li' elementi yaradırıq
+  const li = document.createElement('li');
+  
+  // B. Tapşırıq mətnini daxil edirik
+  const taskText = document.createElement('span');
+  taskText.textContent = text;
+  li.appendChild(taskText);
 
-        // Clear input
-        inputField.value = "";
+  // C. Üstündən xətt çəkmə funksiyası (Toggle completion)
+  taskText.addEventListener('click', function () {
+    if (taskText.style.textDecoration === 'line-through') {
+      taskText.style.textDecoration = 'none';
+      li.style.opacity = '1';
     } else {
-        alert("Please write something first!");
+      taskText.style.textDecoration = 'line-through';
+      li.style.opacity = '0.5';
     }
+  });
+
+  // D. "Sil" (Delete) düyməsini yaradırıq
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'X';
+  deleteBtn.classList.add('delete-btn');
+  
+  // E. Silmə hadisəsini əlavə edirik
+  deleteBtn.addEventListener('click', function () {
+    li.remove();
+  });
+
+  // F. Düyməni 'li'-yə, 'li'-ni isə siyahıya əlavə edirik
+  li.appendChild(deleteBtn);
+  itemList.appendChild(li);
+
+  // İnputu təmizləyirik
+  inputField.value = '';
 }
 
-// 3. Event Listener (The 'Action')
+// 2. Düymələrə hadisə dinləyicisi (Event Listeners) əlavə edirik
 addBtn.addEventListener('click', addItem);
+
+// "Enter" düyməsi ilə əlavə etmək üçün
+inputField.addEventListener('keypress', function (e) {
+  if (e.key === 'Enter') {
+    addItem();
+  }
+});
+
+// Bütün siyahını təmizləmək
+clearBtn.addEventListener('click', function () {
+  if (confirm('Are you sure you want to clear all tasks?')) {
+    itemList.innerHTML = '';
+  }
+});
