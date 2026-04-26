@@ -10,6 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '/'))); 
+
+// MongoDB Connection
 const mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI)
     .then(() => console.log("✅ MongoDB Atlas-a uğurla qoşulduq!"))
@@ -23,24 +25,30 @@ const userSchema = new mongoose.Schema({
 });
 const User = mongoose.model('User', userSchema);
 
+// --- ROUTES ---
 
+// Register
 app.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
+        if (!username || !password) return res.status(400).send("Fill all fields.");
+        
         const newUser = new User({ username, password, tasks: [] });
         await newUser.save();
         res.status(201).send("Account created!");
     } catch (error) {
-        res.status(400).send("User already exists or an error occurred.");
+        res.status(400).send("User already exists or error occurred.");
     }
 });
 
+// Login (Xətasız və Çöküşsüz Versiya)
 app.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username, password });
+
         if (user) {
-            res.json(user);
+            res.status(200).json(user);
         } else {
             res.status(401).send("Invalid credentials.");
         }
@@ -49,6 +57,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
+// Frontend-i görmək üçün
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
