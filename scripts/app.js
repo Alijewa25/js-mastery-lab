@@ -1,5 +1,6 @@
 const registerBtn = document.getElementById('register-btn');
 const loginBtn = document.getElementById('login-btn');
+const logoutBtn = document.getElementById('logout-btn');
 const addBtn = document.getElementById('add-btn');
 const inputField = document.getElementById('item-input');
 const itemList = document.getElementById('item-list');
@@ -11,6 +12,8 @@ let loggedInUser = null;
 registerBtn.addEventListener('click', async () => {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
+    if(!user || !pass) return alert("Please fill all fields!");
+
     const response = await fetch('/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -32,16 +35,23 @@ loginBtn.addEventListener('click', async () => {
     if (response.ok) {
         const data = await response.json();
         loggedInUser = data.username;
-        
         authSection.style.display = 'none';
         todoSection.style.display = 'block';
-        document.getElementById('welcome-msg').innerText = `Hello, ${loggedInUser}`;
-
+        document.getElementById('welcome-msg').innerText = `Hi, ${loggedInUser}`;
+        
         itemList.innerHTML = "";
         data.tasks.forEach(t => renderTask(t));
     } else {
-        alert("Invalid credentials!");
+        alert(await response.text());
     }
+});
+
+logoutBtn.addEventListener('click', () => {
+    loggedInUser = null;
+    authSection.style.display = 'block';
+    todoSection.style.display = 'none';
+    document.getElementById('username').value = "";
+    document.getElementById('password').value = "";
 });
 
 addBtn.addEventListener('click', async () => {
@@ -60,6 +70,6 @@ addBtn.addEventListener('click', async () => {
 
 function renderTask(text) {
     const li = document.createElement('li');
-    li.innerHTML = `<span>${text}</span> <button class="del-task" onclick="this.parentElement.remove()" style="background:none; border:none; color:#ef4444; cursor:pointer;">✕</button>`;
+    li.innerHTML = `<span>${text}</span> <button class="del-btn" onclick="this.parentElement.remove()">✕</button>`;
     itemList.appendChild(li);
 }
