@@ -1,57 +1,65 @@
-// 1. Elementləri seçirik
+const registerBtn = document.getElementById('register-btn');
+const loginBtn = document.getElementById('login-btn');
 const addBtn = document.getElementById('add-btn');
 const inputField = document.getElementById('item-input');
 const itemList = document.getElementById('item-list');
-const registerBtn = document.getElementById('register-btn');
-const clearBtn = document.getElementById('clear-all');
+const authSection = document.querySelector('.auth-box');
+const todoSection = document.querySelector('.todo-box');
 
-// --- TASK ƏLAVƏ ETMƏK (Local işləməsi üçün) ---
-function addItem() {
-    const text = inputField.value;
-    if (text.trim() === "") {
-        alert("Boş buraxma!");
-        return;
-    }
+let loggedInUser = null;
 
-    const li = document.createElement('li');
-    li.textContent = text;
-
-    const delBtn = document.createElement('button');
-    delBtn.textContent = 'X';
-    delBtn.onclick = () => li.remove();
-
-    li.appendChild(delBtn);
-    itemList.appendChild(li);
-    inputField.value = "";
-}
-
-addBtn.addEventListener('click', addItem);
-
-// --- QEYDİYYAT (Serverə göndərmək üçün) ---
 registerBtn.addEventListener('click', async () => {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
+    const response = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+    });
+    alert(await response.text());
+});
 
-    if (!user || !pass) {
-        alert("Xanaları doldur!");
-        return;
-    }
+loginBtn.addEventListener('click', async () => {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
 
-    try {
-        const response = await fetch('/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: user, password: pass })
-        });
+    const response = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: user, password: pass })
+    });
 
-        const result = await response.text();
-        alert(result);
-    } catch (err) {
-        alert("Serverə qoşula bilmədi. Node serverin işləyir?");
+    if (response.ok) {
+        const data = await response.json();
+        loggedInUser = data.username;
+        
+        authSection.style.display = 'none';
+        todoSection.style.display = 'block';
+        document.getElementById('welcome-msg').innerText = `Hello, ${loggedInUser}`;
+
+        itemList.innerHTML = "";
+        data.tasks.forEach(t => renderTask(t));
+    } else {
+        alert("Invalid credentials!");
     }
 });
 
-// Hamısını təmizləmək
-clearBtn.addEventListener('click', () => {
-    itemList.innerHTML = "";
+addBtn.addEventListener('click', async () => {
+    const text = inputField.value;
+    if (!text.trim()) return;
+
+    await fetch('/add-task', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: loggedInUser, task: text })
+    });
+
+    renderTask(text);
+    inputField.value = "";
 });
+
+function renderTask(text) {
+    const li = document.createElement('li');
+    li.innerHTML = `<span>${text}</span> <button class="del-task" onclick="this.parentElement.remove()" style="background:none; border:none; color:#ef4444; cursor:pointer;">✕</button>`;
+    itemList.appendChild(li);
+}

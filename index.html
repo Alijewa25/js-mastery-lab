@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Mastery - Full Stack</title>
+    <title>Ultimate Task Manager</title>
     <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div id="auth-section">
-            <h2>Giriş / Qeydiyyat</h2>
-            <input type="text" id="username" placeholder="İstifadəçi adı">
-            <input type="password" id="password" placeholder="Şifrə">
+    <div class="glass-container">
+        <div class="auth-box">
+            <h1 id="main-title">Join the Club</h1>
+            <p class="subtitle">Organize your workflow in seconds.</p>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" autocomplete="off">
+                <input type="password" id="password" placeholder="Password">
+            </div>
             <div class="auth-btns">
-                <button id="login-btn">Giriş</button>
-                <button id="register-btn">Qeydiyyat</button>
+                <button id="register-btn" class="secondary-btn">Sign Up</button>
+                <button id="login-btn" class="primary-btn">Sign In</button>
             </div>
         </div>
 
-        <hr>
-
-        <div id="main-app">
-            <h2>Mənim Tasklarım</h2>
-            <div class="control-panel">
-                <input type="text" id="item-input" placeholder="Yeni tapşırıq yaz...">
-                <button id="add-btn">Əlavə et</button>
+        <div class="todo-box" style="display: none;">
+            <h1 id="welcome-msg">Your Space</h1>
+            <div class="input-group main-input">
+                <input type="text" id="item-input" placeholder="What's on your mind?">
+                <button id="add-btn" class="primary-btn">+</button>
             </div>
             <ul id="item-list"></ul>
-            <button id="clear-all">Hamısını sil</button>
+            <button id="clear-all" class="danger-btn">Clear All</button>
         </div>
     </div>
 
