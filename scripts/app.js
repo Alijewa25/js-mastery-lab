@@ -1,60 +1,34 @@
 const loginBtn = document.getElementById('login-btn');
 const registerBtn = document.getElementById('register-btn');
-const authBox = document.querySelector('.auth-box');
-const todoBox = document.querySelector('.todo-box');
-const welcomeMsg = document.getElementById('welcome-msg');
 
-// --- QEYDİYYAT (REGISTER) ---
+// QEYDİYYAT
 registerBtn.addEventListener('click', async () => {
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-
-    if (!username || !password) return alert("Please fill all fields");
-
-    try {
-        // DÜZƏLİŞ: Bura mütləq /register olmalıdır!
-        const response = await fetch("/register", { 
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password })
-        });
-
-        const message = await response.text();
-        alert(message);
-    } catch (error) {
-        alert("Registration failed. Check server connection.");
-    }
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value.trim();
+    const res = await fetch("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: u, password: p })
+    });
+    alert(await res.text());
 });
 
-// --- GİRİŞ (LOGIN) ---
+// GİRİŞ
 loginBtn.addEventListener('click', async () => {
-    const username = document.getElementById('username').value.trim();
-    const password = document.getElementById('password').value.trim();
-
-    if (!username || !password) return alert("Please fill all fields");
-
-    try {
-        const response = await fetch("/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, password })
-        });
-
-        if (response.ok) {
-            const user = await response.json();
-            
-            authBox.style.display = 'none';
-            todoBox.style.display = 'block';
-            welcomeMsg.innerText = `Hi, ${user.username}`;
-        } else {
-            const errorMsg = await response.text();
-            alert("Login Failed: " + errorMsg); 
-        }
-    } catch (error) {
-        alert("Could not connect to server.");
+    const u = document.getElementById('username').value.trim();
+    const p = document.getElementById('password').value.trim();
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: u, password: p })
+    });
+    
+    if (res.ok) {
+        const data = await res.json();
+        document.querySelector('.auth-box').style.display = 'none';
+        document.querySelector('.todo-box').style.display = 'block';
+        document.getElementById('welcome-msg').innerText = "Hi, " + data.username;
+    } else {
+        alert("Xəta: " + await res.text());
     }
-});
-
-document.getElementById('logout-btn').addEventListener('click', () => {
-    location.reload(); 
 });
