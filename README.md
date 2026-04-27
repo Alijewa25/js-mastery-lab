@@ -43,6 +43,6 @@ The project is built using the following technologies:
 **Tahmina Aliyeva**
 * LinkedIn: [Tahmina Aliyeva](https://www.linkedin.com/in/tahmina-aliyeva/)
 * GitHub: [Alijewa25](https://github.com/Alijewa25)
-
+* Instagram: [alijewa25_](https://www.instagram.com/alijewa25_/)
 ---
 *Developed with 💜 and Panda Power.*
