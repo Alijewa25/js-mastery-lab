@@ -24,23 +24,18 @@ The project is built using the following technologies:
 
 ## ✨ Key Features
 
-* **🔒 Secure Authentication:** Register and Login system to keep your tasks private.
-* **🎨 Modern UI:** Premium Glassmorphism design with a cool purple color palette.
-* **☁️ Cloud Database:** Powered by MongoDB Atlas for persistent data storage.
-* **✅ Task Management:** Easily add new tasks and delete them once completed.
-* **📱 Responsive Design:** Fully optimized for mobile, tablet, and desktop screens.
+* ** Secure Authentication:** Register and Login system to keep your tasks private.
+* ** Modern UI:** Premium Glassmorphism design with a cool purple color palette.
+* ** Cloud Database:** Powered by MongoDB Atlas for persistent data storage.
+* ** Task Management:** Easily add new tasks and delete them once completed.
+* ** Responsive Design:** Fully optimized for mobile, tablet, and desktop screens.
 
 ---
-
 ## 📸 Screenshots
 
-> [!IMPORTANT]
-> To display your real screenshots, upload your images to a folder named `screenshots` in your repo and update the links below.
-
-| Login Screen | Dashboard |
+| Login Screen | Dashboard View |
 | :--- | :--- |
-| ![Login Screen](https://via.placeholder.com/400x250?text=Login+View) | ![Dashboard View](https://via.placeholder.com/400x250?text=Task+Manager+View) |
-
+| ![Login Screen](Login_screen) | ![Dashboard View](home_screen) |
 ---
 
 
