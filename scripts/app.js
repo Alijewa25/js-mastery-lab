@@ -1,3 +1,4 @@
+// Elementləri ID-lərinə görə tuturuq
 const loginBtn = document.getElementById('login-btn');
 const registerBtn = document.getElementById('register-btn');
 const addTaskBtn = document.getElementById('add-task-btn');
@@ -9,20 +10,22 @@ const welcomeMsg = document.getElementById('welcome-msg');
 const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list');
 
-registerBtn.onclick = async () => {
+registerBtn.addEventListener('click', async () => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
-    if (!username || !password) return alert("Fill all fields");
+    
+    if (!username || !password) return alert("Bütün xanaları doldurun!");
 
     const res = await fetch("/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
     });
-    alert(await res.text());
-};
+    const msg = await res.text();
+    alert(msg);
+});
 
-loginBtn.onclick = async () => {
+loginBtn.addEventListener('click', async () => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
 
@@ -37,15 +40,16 @@ loginBtn.onclick = async () => {
         authBox.style.display = 'none';
         todoBox.style.display = 'block';
         welcomeMsg.innerText = `Hi, ${user.username}`;
-        renderTasks(user.tasks);
+        renderTasks(user.tasks || []);
     } else {
-        alert("Login failed!");
+        alert("Giriş uğursuz oldu!");
     }
-};
+});
 
-addTaskBtn.onclick = async () => {
+addTaskBtn.addEventListener('click', async () => {
     const task = taskInput.value.trim();
     const username = welcomeMsg.innerText.replace("Hi, ", "");
+
     if (!task) return;
 
     const res = await fetch("/add-task", {
@@ -56,13 +60,15 @@ addTaskBtn.onclick = async () => {
 
     if (res.ok) {
         const tasks = await res.json();
-        taskInput.value = "";
-        renderTasks(tasks);
+        taskInput.value = ""; // İnputu təmizlə
+        renderTasks(tasks); // Siyahını yenilə
     }
-};
+});
 
 function renderTasks(tasks) {
     taskList.innerHTML = tasks.map(t => `<li>${t}</li>`).join('');
 }
 
-logoutBtn.onclick = () => location.reload();
+logoutBtn.addEventListener('click', () => {
+    location.reload();
+});
