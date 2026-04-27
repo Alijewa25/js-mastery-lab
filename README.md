@@ -1,31 +1,53 @@
-# JavaScript Mastery Lab 🚀
+# 🐼 Panda Task Manager
 
-A comprehensive practice project covering JavaScript fundamentals, DOM manipulation, and Asynchronous programming.
+A sleek, modern, and user-friendly Task Management application built with a full-stack approach. Featuring a beautiful "Glassmorphism" design and secure user authentication.
 
-## 📌 Project Overview
-This repository is designed to demonstrate proficiency in:
-- **JS Core:** Variable scopes (`let`, `const`), loops, and data structures.
-- **DOM Manipulation:** Selecting elements, updating content, and handling events.
-- **Networking:** Handling requests via `Fetch API` and `XMLHttpRequest`.
-- **Standards:** Clean code practices using `semistandard` rules.
+## 🚀 Live Demo
+Check out the live application here: [Panda Manager Live](https://my-panda-manager.onrender.com/)
+
+---
 
 ## 🛠 Tech Stack
-- **JavaScript** (ES6+)
-- **HTML5 & CSS3**
-- **Node.js** (v14.x for scripting tasks)
-- **Linting:** Semistandard
 
-## 📁 Structure
-- `index.html`: Main entry point.
-- `styles/main.css`: UI styling.
-- `scripts/app.js`: Application logic and DOM control.
+The project is built using the following technologies:
 
-## 🚀 How to Run
-1. Clone the repo.
-2. Open `index.html` in any modern browser (Chrome 57+ recommended).
-3. Open the browser console (`F12`) to see the script execution.
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![Render](https://img.shields.io/badge/Render-%2346E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 
-## 📜 Requirements
-- No usage of `var` (use `let` and `const` only).
-- Every file ends with a new line.
-- Code must be semistandard compliant.
+---
+
+## ✨ Key Features
+
+* **🔒 Secure Authentication:** Register and Login system to keep your tasks private.
+* **🎨 Modern UI:** Premium Glassmorphism design with a cool purple color palette.
+* **☁️ Cloud Database:** Powered by MongoDB Atlas for persistent data storage.
+* **✅ Task Management:** Easily add new tasks and delete them once completed.
+* **📱 Responsive Design:** Fully optimized for mobile, tablet, and desktop screens.
+
+---
+
+## 📸 Screenshots
+
+> [!IMPORTANT]
+> To display your real screenshots, upload your images to a folder named `screenshots` in your repo and update the links below.
+
+| Login Screen | Dashboard |
+| :--- | :--- |
+| ![Login Screen](https://via.placeholder.com/400x250?text=Login+View) | ![Dashboard View](https://via.placeholder.com/400x250?text=Task+Manager+View) |
+
+---
+
+
+## 🐼 Author
+**Tahmina Aliyeva**
+* LinkedIn: [Tahmina Aliyeva](https://www.linkedin.com/in/tahmina-aliyeva/)
+* GitHub: [Alijewa25](https://github.com/Alijewa25)
+
+---
+*Developed with 💜 and Panda Power.*
