@@ -69,3 +69,15 @@ app.get('*', (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => console.log(`🚀 Port: ${PORT}`));
+
+app.post('/delete-task', async (req, res) => {
+    const { username, taskIndex } = req.body;
+    const user = await User.findOne({ username });
+    if (user) {
+        user.tasks.splice(taskIndex, 1); // Seçilən taskı sıradan çıxarır
+        await user.save();
+        res.json(user.tasks);
+    } else {
+        res.status(404).send("User not found");
+    }
+});

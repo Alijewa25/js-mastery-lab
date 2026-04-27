@@ -63,8 +63,30 @@ addTaskBtn.onclick = async () => {
     }
 };
 
+// --- YENİ: TASK SİLMƏK FUNKSİYASI ---
+async function deleteTask(index) {
+    const username = welcomeMsg.innerText.replace("Hi, ", "");
+    
+    const res = await fetch("/delete-task", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, taskIndex: index })
+    });
+
+    if (res.ok) {
+        const tasks = await res.json();
+        renderTasks(tasks);
+    }
+}
+
+// --- YENİLƏNDİ: TASKLARI EKRANA ÇIXARTMAQ (Silmə düyməsi ilə) ---
 function renderTasks(tasks) {
-    taskList.innerHTML = tasks.map(t => `<li>${t}</li>`).join('');
+    taskList.innerHTML = tasks.map((t, index) => `
+        <li style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 12px;">
+            <span>${t}</span>
+            <button onclick="deleteTask(${index})" style="background: none; border: none; cursor: pointer; font-size: 1.1rem; color: #ef4444;">🗑️</button>
+        </li>
+    `).join('');
 }
 
 logoutBtn.onclick = () => location.reload();
