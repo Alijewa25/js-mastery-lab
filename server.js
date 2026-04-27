@@ -9,19 +9,19 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '/')));
 
-// MongoDB Qoşulması
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("✅ MongoDB OK"))
     .catch(err => console.error("❌ MongoDB Error:", err));
 
-// İstifadəçi Modeli
+
 const User = mongoose.model('User', new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     tasks: [String]
 }));
 
-// --- QEYDİYYATTT ---
+
 app.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -48,7 +48,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// --- TASK ƏLAVƏ EDƏKK ---
+
 app.post('/add-task', async (req, res) => {
     try {
         const { username, task } = req.body;
@@ -74,7 +74,7 @@ app.post('/delete-task', async (req, res) => {
     const { username, taskIndex } = req.body;
     const user = await User.findOne({ username });
     if (user) {
-        user.tasks.splice(taskIndex, 1); // Seçilən taskı sıradan çıxarır
+        user.tasks.splice(taskIndex, 1);
         await user.save();
         res.json(user.tasks);
     } else {
