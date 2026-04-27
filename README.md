@@ -35,7 +35,7 @@ The project is built using the following technologies:
 
 | Login Screen | Dashboard View |
 | :--- | :--- |
-| ![Login Screen](Login_screen) | ![Dashboard View](home_screen) |
+| ![Login Screen](Login_screen) | ![Home Page](home_screen) |
 ---
 
 
