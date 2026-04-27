@@ -1,31 +1,29 @@
-// Elementləri ID-lərinə görə tuturuq
 const loginBtn = document.getElementById('login-btn');
 const registerBtn = document.getElementById('register-btn');
 const addTaskBtn = document.getElementById('add-task-btn');
 const logoutBtn = document.getElementById('logout-btn');
 
-const authBox = document.querySelector('.auth-box');
-const todoBox = document.querySelector('.todo-box');
+const authSection = document.getElementById('auth-section');
+const todoSection = document.getElementById('todo-section');
 const welcomeMsg = document.getElementById('welcome-msg');
-const taskInput = document.getElementById('task-input');
 const taskList = document.getElementById('task-list');
 
-registerBtn.addEventListener('click', async () => {
+// QEYDİYYAT
+registerBtn.onclick = async () => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
-    
-    if (!username || !password) return alert("Bütün xanaları doldurun!");
+    if (!username || !password) return alert("Fill fields!");
 
     const res = await fetch("/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
     });
-    const msg = await res.text();
-    alert(msg);
-});
+    alert(await res.text());
+};
 
-loginBtn.addEventListener('click', async () => {
+// GİRİŞ
+loginBtn.onclick = async () => {
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value.trim();
 
@@ -37,19 +35,19 @@ loginBtn.addEventListener('click', async () => {
 
     if (res.ok) {
         const user = await res.json();
-        authBox.style.display = 'none';
-        todoBox.style.display = 'block';
+        authSection.style.display = 'none';
+        todoSection.style.display = 'block';
         welcomeMsg.innerText = `Hi, ${user.username}`;
         renderTasks(user.tasks || []);
     } else {
-        alert("Giriş uğursuz oldu!");
+        alert("Login failed!");
     }
-});
+};
 
-addTaskBtn.addEventListener('click', async () => {
-    const task = taskInput.value.trim();
+// TASK ƏLAVƏ ET
+addTaskBtn.onclick = async () => {
+    const task = document.getElementById('task-input').value.trim();
     const username = welcomeMsg.innerText.replace("Hi, ", "");
-
     if (!task) return;
 
     const res = await fetch("/add-task", {
@@ -60,15 +58,13 @@ addTaskBtn.addEventListener('click', async () => {
 
     if (res.ok) {
         const tasks = await res.json();
-        taskInput.value = ""; // İnputu təmizlə
-        renderTasks(tasks); // Siyahını yenilə
+        document.getElementById('task-input').value = "";
+        renderTasks(tasks);
     }
-});
+};
 
 function renderTasks(tasks) {
     taskList.innerHTML = tasks.map(t => `<li>${t}</li>`).join('');
 }
 
-logoutBtn.addEventListener('click', () => {
-    location.reload();
-});
+logoutBtn.onclick = () => location.reload();

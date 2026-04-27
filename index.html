@@ -4,26 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panda Task Manager</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="auth-box">
+    <div class="glass-container">
+        <div id="auth-section" class="auth-box">
+            <div class="panda-circle">
+                <img src="https://cdn-icons-png.flaticon.com/512/12783/12783443.png" alt="Panda" width="60">
+            </div>
             <h1>Panda Login</h1>
+            <p class="subtitle">Management simplified with Panda.</p>
+            
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
-            <button id="register-btn">Create Account</button>
-            <button id="login-btn">Sign In</button>
+            
+            <button id="login-btn" class="primary-btn">Sign In</button>
+            <button id="register-btn" class="secondary-btn">Create Account</button>
         </div>
 
-        <div class="todo-box" style="display:none;">
-            <h2 id="welcome-msg"></h2>
-            <div class="input-group">
-                <input type="text" id="task-input" placeholder="What needs to be done?">
-                <button id="add-task-btn">Add Task</button>
+        <div id="todo-section" class="todo-box" style="display:none;">
+            <div class="panda-circle small">
+                <img src="https://cdn-icons-png.flaticon.com/512/12783/12783443.png" alt="Panda" width="40">
             </div>
+            <h2 id="welcome-msg"></h2>
+            
+            <input type="text" id="task-input" placeholder="What needs to be done?">
+            <button id="add-task-btn" class="primary-btn task-btn">Add Task</button>
+            
             <ul id="task-list"></ul>
-            <button id="logout-btn">Sign Out</button>
+            
+            <button id="logout-btn" class="signout-btn">Sign Out</button>
         </div>
     </div>
 
