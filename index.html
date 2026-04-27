@@ -2,45 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panda Task Manager</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
-    <div class="glass-container">
-        <svg class="panda-logo" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="95" stroke="#f8fafc" stroke-width="10" fill="none"/>
-            <circle cx="50" cy="40" r="30" fill="#f8fafc"/>
-            <circle cx="150" cy="40" r="30" fill="#f8fafc"/>
-            <circle cx="70" cy="110" r="25" fill="#f8fafc"/>
-            <circle cx="130" cy="110" r="25" fill="#f8fafc"/>
-            <circle cx="70" cy="110" r="12" fill="#0f172a"/>
-            <circle cx="130" cy="110" r="12" fill="#0f172a"/>
-            <circle cx="100" cy="155" r="15" fill="#f8fafc"/>
-        </svg>
-
+    <div class="container">
         <div class="auth-box">
-            <h1>Welcome Back</h1>
-            <p class="subtitle">Management simplified with Panda.</p>
-            <div class="input-group">
-                <input type="text" id="username" placeholder="Username" autocomplete="off">
-                <input type="password" id="password" placeholder="Password">
-            </div>
-            <div class="auth-btns">
-                <button id="register-btn" class="secondary-btn">Create Account</button>
-                <button id="login-btn" class="primary-btn">Sign In</button>
-            </div>
+            <h1>Panda Login</h1>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="register-btn">Create Account</button>
+            <button id="login-btn">Sign In</button>
         </div>
 
-        <div class="todo-box" style="display: none;">
-            <h2 id="welcome-msg">Hi, tahmis</h2>
-            <div class="input-group main-input">
-                <input type="text" id="item-input" placeholder="What's on your mind?">
+        <div class="todo-box" style="display:none;">
+            <h2 id="welcome-msg"></h2>
+            <div class="input-group">
+                <input type="text" id="task-input" placeholder="What needs to be done?">
+                <button id="add-task-btn">Add Task</button>
             </div>
-            <button id="add-btn" class="primary-btn task-btn">Add Task</button>
-            <button id="logout-btn" class="primary-btn signout-btn">Sign Out</button>
-            <ul id="item-list"></ul>
+            <ul id="task-list"></ul>
+            <button id="logout-btn">Sign Out</button>
         </div>
     </div>
     <script src="scripts/app.js"></script>

@@ -9,47 +9,19 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '/')));
 
+// MongoDB Qoşulması
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("✅ MongoDB OK"))
     .catch(err => console.error("❌ MongoDB Error:", err));
 
+// İstifadəçi Modeli
 const User = mongoose.model('User', new mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     tasks: [String]
 }));
 
-// LOGIN ROUTE - Tam Təhlükəsiz Versiya
-app.post('/login', async (req, res) => {
-    console.log("Login:", req.body.username);
-    try {
-        const { username, password } = req.body;
-        
-        if (!username || !password) {
-            return res.status(400).send("Username and password required");
-        }
-
-        const user = await User.findOne({ username: username });
-
-        if (!user) {
-            console.log("İstifadəçi tapılmadı");
-            return res.status(401).send("User not found");
-        }
-
-        if (user.password !== password) {
-            console.log("Şifrə səhvdir");
-            return res.status(401).send("Wrong password");
-        }
-
-        console.log("Giriş uğurlu!");
-        return res.status(200).json(user);
-
-    } catch (error) {
-        console.error("SERVER XƏTASI:", error);
-        return res.status(500).send("Server error: " + error.message);
-    }
-});
-
+// --- QEYDİYYATTT ---
 app.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -58,6 +30,36 @@ app.post('/register', async (req, res) => {
         res.status(201).send("Account created!");
     } catch (error) {
         res.status(400).send("User exists or database error.");
+    }
+});
+
+// --- GİRİŞ hehe ---
+app.post('/login', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+
+        if (!user || user.password !== password) {
+            return res.status(401).send("Invalid credentials");
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).send("Server error");
+    }
+});
+
+// --- TASK ƏLAVƏ EDƏKK ---
+app.post('/add-task', async (req, res) => {
+    try {
+        const { username, task } = req.body;
+        const user = await User.findOneAndUpdate(
+            { username: username },
+            { $push: { tasks: task } },
+            { new: true }
+        );
+        res.status(200).json(user.tasks);
+    } catch (error) {
+        res.status(500).send("Task error");
     }
 });
 
